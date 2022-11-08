@@ -1,7 +1,7 @@
-#include "Axo_Tete.h"
-#include <GL/glut.h>
+#include "GL/glut.h"
 #include <math.h>
 
+#include "../include/Axo_Tete.h"
 Axo_Tete::Axo_Tete(const float size)
 {
     this->Rtete = size*1.0;

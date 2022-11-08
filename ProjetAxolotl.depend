@@ -1,0 +1,48 @@
+# depslib dependency file v1.0
+1667918135 source:/home3/nj123548/OpenGL/ProjetAxolotl/src/Axo_Main.cpp
+	<GL/glut.h>
+	"../include/Axo_Main.h"
+
+1667897554 /home3/nj123548/OpenGL/ProjetAxolotl/include/Axo_Main.h
+	"Drawable.h"
+
+1667897554 /home3/nj123548/OpenGL/ProjetAxolotl/include/Drawable.h
+
+1667918147 source:/home3/nj123548/OpenGL/ProjetAxolotl/src/Axo_Pate.cpp
+	"GL/freeglut.h"
+	"../include/Axo_Pate.h"
+	"../include/Axo_Main.h"
+
+1667897554 /home3/nj123548/OpenGL/ProjetAxolotl/include/Axo_Pate.h
+	"Axo_Main.h"
+
+1667918193 source:/home3/nj123548/OpenGL/ProjetAxolotl/src/Axo_Corp.cpp
+	<GL/freeglut.h>
+	"../include/Axo_Corp.h"
+	"../include/Axo_Pate.h"
+	"../include/Axo_Tete.h"
+
+1667897554 /home3/nj123548/OpenGL/ProjetAxolotl/include/Axo_Corp.h
+	"Axo_Tete.h"
+	"Axo_Pate.h"
+	"Axo_Queue.h"
+	<cmath>
+	<math.h>
+
+1667897554 /home3/nj123548/OpenGL/ProjetAxolotl/include/Axo_Tete.h
+	"Drawable.h"
+
+1667897554 /home3/nj123548/OpenGL/ProjetAxolotl/include/Axo_Queue.h
+	"Drawable.h"
+
+1667918201 source:/home3/nj123548/OpenGL/ProjetAxolotl/src/Axo_Queue.cpp
+	<GL/freeglut.h>
+	"../include/Axo_Queue.h"
+	"../include/Drawable.h"
+
+1667918214 source:/home3/nj123548/OpenGL/ProjetAxolotl/src/main.cpp
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<cstdlib>
+	"../include/Axo_Corp.h"
+

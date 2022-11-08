@@ -1,6 +1,6 @@
-#include "Axo_Main.h"
-
 #include <GL/glut.h>
+
+#include "../include/Axo_Main.h"
 
 Axo_Main::Axo_Main(const float size, const bool cinqDoigts)//constructeur
 {

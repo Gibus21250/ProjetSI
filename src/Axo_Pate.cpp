@@ -1,9 +1,8 @@
-#include "Axo_Pate.h"
 
 #include "GL/freeglut.h"
-#include "Axo_Main.h"
 
-#include <iostream>
+#include "../include/Axo_Pate.h"
+#include "../include/Axo_Main.h"
 
 Axo_Pate::Axo_Pate(const float size, const float rot, const bool pate)
 {

@@ -1,9 +1,8 @@
-#include "Axo_Corp.h"
-
 #include <GL/freeglut.h>
 
-#include "Axo_Pate.h"
-#include "Axo_Tete.h"
+#include "../include/Axo_Corp.h"
+#include "../include/Axo_Pate.h"
+#include "../include/Axo_Tete.h"
 
 
 Axo_Corp::Axo_Corp(const float size)
@@ -54,7 +53,7 @@ Axo_Corp::Axo_Corp(const float size)
 void Axo_Corp::generateCyl()      //genere un cylindre de nbFaces
 {
     for (int i = 0; i < nbFaces; i++)
-    {   
+    {
         //base
         pCyl[i][0] = rCyl * cos(i * 2 * M_PI / nbFaces);  //coordonnées x
         pCyl[i][1] = 0;                           //coordonnées y

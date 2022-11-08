@@ -6,7 +6,7 @@
 #include <GL/glut.h>   /* Pour les autres systemes */
 #endif
 #include <cstdlib>
-#include "Axo_Corp.h"
+#include "../include/Axo_Corp.h"
 
 //Variable translation générales
 float rx = 0, ry = 0, rz = 0;

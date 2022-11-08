@@ -1,6 +1,7 @@
-#include "Axo_Queue.h"
-#include "Drawable.h"
 #include <GL/freeglut.h>
+
+#include "../include/Axo_Queue.h"
+#include "../include/Drawable.h"
 
 Axo_Queue::Axo_Queue(const float size)
 {
