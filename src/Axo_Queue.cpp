@@ -46,6 +46,7 @@ void Axo_Queue::flagelemMod()
 
     glPushMatrix();
         //glTranslatef(0, 0.8, 0);
+        glNormal3f(0, 0, 1);
         glBegin(GL_TRIANGLES);
 
             glColor3f(r, g - 0.2, b);   //bout queue
