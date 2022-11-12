@@ -3,7 +3,7 @@
 
 #include "Axo_Tete.h"
 #include "Axo_Pate.h"
-#include "Axo_Queue.h";
+#include "Axo_Queue.h"
 
 #ifdef _WIN32
 #define _USE_MATH_DEFINES
@@ -16,14 +16,13 @@ class Axo_Corp : public Drawable
 {
 public:
     Axo_Corp(const float size);
+    Axo_Corp();
     void draw();
     void generateCyl();
 
     ~Axo_Corp();
 
 private:
-
-    struct m_material_infos material;
 
     struct Point
     {
@@ -51,7 +50,7 @@ private:
     };
 
     void flageleMod();
-    
+
     float r, g, b;
     float size;
     int nbFaces; //TODO peut être supprimer cet attribut

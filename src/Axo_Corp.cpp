@@ -39,15 +39,12 @@ Axo_Corp::Axo_Corp(const float size)
     this->pg = Axo_Pate(size, 20.0f, 0.0f, true);
     this->queue = Axo_Queue(size);
 
-    this->material = m_material_infos{
-        {r, g, b, 1.0f},   //ambiant
-        {0.8f, 0.8f, 0.8f, 1.0f},   //diffuse
-        {0.0f, 0.0f, 0.0f, 0.0f},   //specular
-        0.0f,   //shininess
-        {0.0f, 0.0f, 0.0f, 0.0f}    //emission
-    };
-
     generateCyl();
+}
+
+Axo_Corp::Axo_Corp()
+{
+    Axo_Corp(1.0f);
 }
 
 void Axo_Corp::generateCyl()      //genere un cylindre de nbFaces
@@ -107,8 +104,8 @@ void Axo_Corp::generateCyl()      //genere un cylindre de nbFaces
 
 void Axo_Corp::draw()
 {
-
-    /*  Modelisation et placement de la main droite*/
+    /*
+    /*  Modelisation et placement de la main droite
     glPushMatrix();
         glTranslatef(0.8 * hCyl, -rCyl*0.40, rCyl * 0.8);
         glRotatef(20, 0, 0, 1);
@@ -116,7 +113,7 @@ void Axo_Corp::draw()
         md.draw();
     glPopMatrix();
 
-    /*  Modelisation et placement de la main gauche*/
+    /*  Modelisation et placement de la main gauche
     glPushMatrix();
         glTranslatef(0.8 * hCyl, -rCyl*0.40, -rCyl * 0.8);
         glRotatef(130, 0, 1, 0);
@@ -125,7 +122,7 @@ void Axo_Corp::draw()
         mg.draw();
     glPopMatrix();
 
-    /*  Modelisation et placement du pied droit*/
+    /*  Modelisation et placement du pied droit
     glPushMatrix();
         glTranslatef(0.1 * hCyl, -rCyl*0.40, rCyl * 0.8);
         glRotatef(-100, 0, 1, 0);
@@ -134,7 +131,7 @@ void Axo_Corp::draw()
         pd.draw();
     glPopMatrix();
 
-    /*  Modelisation et placement du pied gauche*/
+    /*  Modelisation et placement du pied gauche
     glPushMatrix();
         glTranslatef(0.1 * hCyl, -rCyl*0.40, -rCyl * 0.8);
         glRotatef(20, 0, 0, 1);
@@ -142,12 +139,13 @@ void Axo_Corp::draw()
         pg.draw();
     glPopMatrix();
 
-    /*  Modelisation et placement de la tete*/
+    /*  Modelisation et placement de la tete
     glPushMatrix();
         glTranslatef(hCyl, 0, 0);
         glScalef(0.4, 0.4, 0.4);
         tete.draw();
     glPopMatrix();
+    */
 
     /*--------------------construction, mise en couleur du cylindre--------------------*/
 
@@ -200,7 +198,7 @@ void Axo_Corp::draw()
 
     flageleMod();
 
-    queue.draw();
+    //queue.draw();
 
 }
 

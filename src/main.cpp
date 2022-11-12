@@ -6,7 +6,8 @@
 #include <GL/glut.h>   /* Pour les autres systemes */
 #endif
 #include <cstdlib>
-#include "../include/Axo_Corp.h"
+#include "Axolotl.h"
+#include "Axo_Corp.h"
 
 //Variable translation générales
 float rx = 0, ry = 0, rz = 0;
@@ -14,6 +15,7 @@ float rx = 0, ry = 0, rz = 0;
 int anglex, angley, x, y, xold, yold;
 char presse;
 
+Axolotl Axo(1.0f), Axo2(1.0f);
 Axo_Corp corp(1.0f);
 
 float distance = 7;
@@ -28,7 +30,12 @@ void mousemotion(int x, int y);
 
 void axolotl()
 {
-    corp.draw();
+    Axo.draw();
+    glPushMatrix();
+    glTranslatef(2, 0, 5);
+    glRotatef(90, 0, 1, 0);
+    Axo2.draw();
+    glPopMatrix();
 }
 
 int main(int argc, char** argv)
