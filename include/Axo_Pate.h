@@ -6,7 +6,7 @@
 class Axo_Pate : public Drawable
 {
 public:
-    Axo_Pate(const float size, const float rot, const bool type_pied);
+    Axo_Pate(const float size, const float rot, const float rotM, const bool type_pied);
     Axo_Pate();
     void setRotationCoude(float rot);
     void draw();
@@ -20,6 +20,7 @@ private:
     float LBras, Rcoude, RBras;
     float r, g, b;
     float rotation_coude;
+    float rotation_main;
 
     bool pata_arriere;
 };

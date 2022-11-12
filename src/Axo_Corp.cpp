@@ -33,10 +33,10 @@ Axo_Corp::Axo_Corp(const float size)
     }
 
     this->tete = Axo_Tete(size);
-    this->md = Axo_Pate(size, 0.0f, false);
-    this->mg = Axo_Pate(size, 60.0f, false);
-    this->pd = Axo_Pate(size, 20.0f, true);
-    this->pg = Axo_Pate(size, 20.0f, true);
+    this->md = Axo_Pate(size, 0.0f, -20.0f, false);
+    this->mg = Axo_Pate(size, 60.0f, 0.0f, false);
+    this->pd = Axo_Pate(size, 20.0f, 0.0f, true);
+    this->pg = Axo_Pate(size, 20.0f, 0.0f, true);
     this->queue = Axo_Queue(size);
 
     this->material = m_material_infos{
@@ -110,30 +110,34 @@ void Axo_Corp::draw()
 
     /*  Modelisation et placement de la main droite*/
     glPushMatrix();
-        glTranslatef(0.9 * hCyl, 0, rCyl * 0.9);
+        glTranslatef(0.8 * hCyl, -rCyl*0.40, rCyl * 0.8);
+        glRotatef(20, 0, 0, 1);
         glRotatef(-130, 0, 1, 0);
         md.draw();
     glPopMatrix();
 
     /*  Modelisation et placement de la main gauche*/
     glPushMatrix();
-        glTranslatef(0.9 * hCyl, 0, -rCyl * 0.9);
+        glTranslatef(0.8 * hCyl, -rCyl*0.40, -rCyl * 0.8);
         glRotatef(130, 0, 1, 0);
         glRotatef(180, 1, 0, 0);
+        glRotatef(20, 0, 0, 1);
         mg.draw();
     glPopMatrix();
 
     /*  Modelisation et placement du pied droit*/
     glPushMatrix();
-        glTranslatef(0.1 * hCyl, 0, rCyl * 0.9);
+        glTranslatef(0.1 * hCyl, -rCyl*0.40, rCyl * 0.8);
         glRotatef(-100, 0, 1, 0);
         glRotatef(180, 1, 0, 0);
+        glRotatef(20, 0, 0, 1);
         pd.draw();
     glPopMatrix();
 
     /*  Modelisation et placement du pied gauche*/
     glPushMatrix();
-        glTranslatef(0.1 * hCyl, 0, -rCyl * 0.9);
+        glTranslatef(0.1 * hCyl, -rCyl*0.40, -rCyl * 0.8);
+        glRotatef(20, 0, 0, 1);
         glRotatef(140, 0, 1, 0);
         pg.draw();
     glPopMatrix();
@@ -194,9 +198,8 @@ void Axo_Corp::draw()
 
     glPopMatrix();
 
-    glPushMatrix();
-        flageleMod();
-    glPopMatrix();
+    flageleMod();
+
     queue.draw();
 
 }
@@ -212,10 +215,10 @@ void Axo_Corp::flageleMod()
             glVertex3f(0, rCyl*1.1, 0);     //coin en haut à gauche
 
             glColor3f(r, g - 0.2, b);
-            glVertex3f(0, -rCyl*1.1, 0);  //coin en bas à gauche
+            glVertex3f(0, 0, 0);  //coin en bas à gauche
 
             glColor3f(r, g, b);
-            glVertex3f(0.72 * hCyl, -rCyl * 1.1, 0);     //coin en bas à droite
+            glVertex3f(0.72 * hCyl, 0, 0);     //coin en bas à droite
 
             glColor3f(r, g, b);
             glVertex3f(0.72 * hCyl, rCyl * 1.1, 0);     //coin en haut à droite
@@ -224,7 +227,7 @@ void Axo_Corp::flageleMod()
 
     glPopMatrix();
 
-    //flagele rect-triangle
+    //flagele triangle cou
     glPushMatrix();
 
         glBegin(GL_POLYGON);
@@ -232,13 +235,30 @@ void Axo_Corp::flageleMod()
             glVertex3f(0.72*hCyl, rCyl*1.1, 0);     //coin en haut à gauche
 
             glColor3f(r, g, b);
-            glVertex3f(0.72*hCyl, -rCyl*1.1, 0);    //coin en bas à gauche
+            glVertex3f(0.72*hCyl, 0, 0);    //coin en bas à gauche
 
             glColor3f(r, g, b);
-            glVertex3f(hCyl, -rCyl*0.6, 0);     //coin en bas à droite
+            glVertex3f(hCyl, 0, 0);     //coin en bas à droite
 
             glColor3f(r, g, b);
             glVertex3f(hCyl, rCyl*0.6, 0);      //coin en haut à droite
+
+        glEnd();
+
+    glPopMatrix();
+
+        //flagele triangle bassin
+    glPushMatrix();
+
+        glBegin(GL_TRIANGLES);
+            glColor3f(r, g - 0.2, b);
+            glVertex3f(0, -rCyl*1.1, 0);
+
+            glColor3f(r, g - 0.2, b);
+            glVertex3f(0, 0, 0);
+
+            glColor3f(r, g, b);
+            glVertex3f((1-0.72)*hCyl, -0.72*rCyl, 0);
 
         glEnd();
 

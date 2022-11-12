@@ -4,9 +4,9 @@
 #include "../include/Axo_Pate.h"
 #include "../include/Axo_Main.h"
 
-Axo_Pate::Axo_Pate(const float size, const float rot, const bool pate)
+Axo_Pate::Axo_Pate(const float size, const float rot, const float rotM, const bool pate)
 {
-    this->LBras = size*0.2;
+    this->LBras = size*0.3;
     this->RBras = size*0.08;
     this->Rcoude = size*0.095;
 
@@ -18,13 +18,14 @@ Axo_Pate::Axo_Pate(const float size, const float rot, const bool pate)
     this->g = 196 / 255.;
     this->b = 207 / 255.;
 
+    this->rotation_main = rotM;
     this->main = Axo_Main(size, pate);
 
 }
 
 Axo_Pate::Axo_Pate()
 {
-    Axo_Pate(1.0f, 0.0f, false);
+    Axo_Pate(1.0f, 0.0f, 0.0f, false);
 }
 
 void Axo_Pate::setRotationCoude(float rot)
@@ -70,6 +71,7 @@ void Axo_Pate::draw()
         /*  Main  */
         glPushMatrix();
             glTranslatef(2 * LBras + 2 * Rcoude, 0, 0);
+            glRotatef(rotation_main, 1, 0, 0);
             this->main.draw();
         glPopMatrix();
     glPopMatrix();
