@@ -4,7 +4,7 @@
 #include "../include/Axo_Pate.h"
 #include "../include/Axo_Main.h"
 
-Axo_Pate::Axo_Pate(const float size, const float rot, const float rotM, const bool pate)
+Axo_Pate::Axo_Pate(const float size, const float rot, const float rotM, const bool pate, const float r_, const float g_, const float b_)
 {
     this->LBras = size*0.3;
     this->RBras = size*0.08;
@@ -14,19 +14,16 @@ Axo_Pate::Axo_Pate(const float size, const float rot, const float rotM, const bo
 
     this->pata_arriere = pate;
 
-    this->r = 243 / 255.;
-    this->g = 196 / 255.;
-    this->b = 207 / 255.;
+    this->r = r_;
+    this->g = g_;
+    this->b = b_;
 
     this->rotation_main = rotM;
-    this->main = Axo_Main(size, pate);
+    this->main = Axo_Main(size, pate, r, g, b);
 
 }
 
-Axo_Pate::Axo_Pate()
-{
-    //Axo_Pate(1.0f, 0.0f, 0.0f, false);
-}
+Axo_Pate::Axo_Pate() : Axo_Pate(1.0f, 0.0f, 0.0f, false, 243 / 255., 196 / 255., 207 / 255.) {}
 
 void Axo_Pate::setRotationCoude(float rot)
 {

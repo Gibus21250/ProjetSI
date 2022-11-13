@@ -7,12 +7,12 @@
 #include "../include/Axo_Pate.h"
 #include "../include/Axo_Tete.h"
 
-Axo_Corp::Axo_Corp(const float size)
+Axo_Corp::Axo_Corp(const float size, const float r_, const float g_, const float b_)
 {
     //---Attributs---//
-    this->r = 243 / 255.f;
-    this->g = 196 / 255.f;
-    this->b = 207 / 255.f;
+    this->r = r_;
+    this->g = g_;
+    this->b = b_;
 
     this->size = size;
 
@@ -23,7 +23,7 @@ Axo_Corp::Axo_Corp(const float size)
     loadJpegImage((char*)"./Axo_TextureStriesInverses.jpg");
 }
 
-Axo_Corp::Axo_Corp() : Axo_Corp (1.0f) {}
+Axo_Corp::Axo_Corp() : Axo_Corp (1.0f, 243 / 255.f, 196 / 255.f, 207 / 255.f) {}
 
 void Axo_Corp::generateCyl()      //genere un cylindre de nbFaces
 {

@@ -6,7 +6,7 @@
 class Axo_Main : public Drawable
 {
 public:
-    Axo_Main(const float size, const bool cinqDoigts);
+    Axo_Main(const float size, const bool cinqDoigts, const float r, const float g, const float b);
     Axo_Main();
     void draw();
 

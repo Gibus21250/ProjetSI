@@ -6,7 +6,7 @@
 class Axo_Queue : public Drawable
 {
 public:
-    Axo_Queue(const float size);
+    Axo_Queue(const float size, const float r, const float g, const float b);
     Axo_Queue();
 
     void draw();

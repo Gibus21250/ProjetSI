@@ -3,12 +3,12 @@
 #include "../include/Axo_Queue.h"
 #include "../include/Drawable.h"
 
-Axo_Queue::Axo_Queue(const float size)
+Axo_Queue::Axo_Queue(const float size, const float r_, const float g_, const float b_)
 {
     //---Attributs---//
-    this->r = 243 / 255.;
-    this->g = 196 / 255.;
-    this->b = 207 / 255.;
+    this->r = r_;
+    this->g = g_;
+    this->b = b_;
 
     this->size = size;
 
@@ -20,10 +20,7 @@ Axo_Queue::Axo_Queue(const float size)
 
 }
 
-Axo_Queue::Axo_Queue()
-{
-    //Axo_Queue(1.0f);
-}
+Axo_Queue::Axo_Queue() : Axo_Queue(.0f, 243 / 255., 196 / 255., 207 / 255.){}
 
 void Axo_Queue::draw()
 {

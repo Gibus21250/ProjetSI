@@ -27,12 +27,12 @@ Axolotl::Axolotl(const float size, const float r_, const float g_, const float b
     this->setPosition(0, 0, 0);
 
     this->tete = Axo_Tete(size, r, g, b);
-    this->corp = Axo_Corp(size);
-    this->md = Axo_Pate(size, 0.0f, -20.0f, false);
-    this->mg = Axo_Pate(size, 60.0f, 0.0f, false);
-    this->pd = Axo_Pate(size, 20.0f, 0.0f, true);
-    this->pg = Axo_Pate(size, 20.0f, 0.0f, true);
-    this->queue = Axo_Queue(size);
+    this->corp = Axo_Corp(size, r, g, b);
+    this->md = Axo_Pate(size, 0.0f, -20.0f, false, r, g, b);
+    this->mg = Axo_Pate(size, 60.0f, 0.0f, false, r, g, b);
+    this->pd = Axo_Pate(size, 20.0f, 0.0f, true, r, g, b);
+    this->pg = Axo_Pate(size, 20.0f, 0.0f, true, r, g, b);
+    this->queue = Axo_Queue(size, r, g, b);
 }
 
 void Axolotl::setPosition(const float x, const float y, const float z)

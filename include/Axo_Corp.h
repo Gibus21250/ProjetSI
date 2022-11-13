@@ -12,7 +12,7 @@
 class Axo_Corp : public Drawable
 {
 public:
-    Axo_Corp(const float size);
+    Axo_Corp(const float size, const float r, const float g, const float b);
     Axo_Corp();
     void draw();
 

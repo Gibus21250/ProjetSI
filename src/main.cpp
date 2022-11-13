@@ -11,17 +11,20 @@
 
 int framesPassed = 0;
 
-float anglex, angley;
+float anglex = 0, angley = 12;
 int x, y, xold, yold;
 bool presseAngle = false, presseTranslation;
-float cposx = 0, cposy = 0, cposz = 5;
+float cposx = 0, cposy = 0, cposz = 10;
 
 Axolotl Axo{1.0f};
+Axolotl AxoBleu(0.5f, 115/255.0f, 194/255.0f, 251/255.0f);
+Axolotl AxoBleu2(0.7f, 0/255.0f, 204/255.0f, 203/255.0f);
+Axolotl AxoRouge(1.2f, 109/255.0f, 7/255.0f, 26/255.0f);
 Sol sol;
 
 float ratio = 1.0f;
 
-char nbLum = 0;
+char nbLum = 3;
 
 /* Prototype des fonctions */
 void affichage();
@@ -35,6 +38,28 @@ void arrowGestion(int x, int y, int z);
 void axolotl()
 {
     Axo.draw();
+    Axo.setPosition(-3, 0, 0);
+    //AxoBleu.setPosition(-3, 0, -1);
+    //AxoBleu2.setPosition(-6, 0, -3);
+    //AxoRouge.setPosition(2, 0, -2);
+
+    glPushMatrix();
+        glTranslatef(-1.5, 0, -2);
+        glRotatef(-45, 0, 1, 0);
+        AxoBleu.draw();
+    glPopMatrix();
+
+    glPushMatrix();
+        glTranslatef(0.1, 0, -3);
+        glRotatef(-115, 0, 1, 0);
+        AxoBleu2.draw();
+    glPopMatrix();
+
+    glPushMatrix();
+        glTranslatef(2.35, 0, 0);
+        glRotatef(-180, 0, 1, 0);
+        AxoRouge.draw();
+    glPopMatrix();
     sol.draw();
 }
 
@@ -110,11 +135,11 @@ void affichage()
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     //glOrtho(-cposz, cposz, -cposz, cposz, 0.1, 50);
-    gluPerspective(30, ratio, 0.01, 25);
+    gluPerspective(30, ratio, 0.01, 50);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluLookAt(cposx, cposy, cposz, cposx, cposy, cposz - 5, 0.0, 1.0, 0.0);
+    gluLookAt(cposx, cposy, cposz, cposx, cposy, cposz - 10, 0.0, 1.0, 0.0);
     //Rotation espace en fonction de l'angle de vue
     glRotatef(angley, 1.0, 0.0, 0.0);
     glRotatef(anglex, 0.0, 1.0, 0.0);
@@ -150,6 +175,7 @@ void affichage()
 
     axolotl();
 
+    /*
     //Repère
     //axe x en rouge
     glBegin(GL_LINES);
@@ -169,6 +195,7 @@ void affichage()
     glVertex3f(0, 0, 0.0);
     glVertex3f(0, 0, 2.0);
     glEnd();
+    */
 
 
     glFlush();
@@ -179,7 +206,6 @@ void affichage()
 
 void clavier(unsigned char touche, int x, int y)
 {
-    std::cout << touche << std::endl;
     switch (touche)
     {
     case 'p': /* affichage du carre plein */
@@ -203,7 +229,7 @@ void clavier(unsigned char touche, int x, int y)
         glutPostRedisplay();
         break;
     case 'a':
-        glPolygonMode(GL_FRONT, GL_FILL);
+        glPolygonMode(GL_BACK, GL_FILL);
         glPolygonMode(GL_FRONT, GL_LINE);
         glutPostRedisplay();
         break;
@@ -220,9 +246,11 @@ void clavier(unsigned char touche, int x, int y)
         if(nbLum > 3) nbLum = 0;
         break;
     case 'Z':
-        cposz += 0.1;
+        if(cposz < 20)
+            cposz += 0.1;
         break;
     case 'z':
+        if(cposz > 0)
         cposz -= 0.1;
         break;
     case 'q': /*la touche 'q' permet de quitter le programme */

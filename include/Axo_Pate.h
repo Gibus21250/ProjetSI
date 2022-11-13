@@ -6,7 +6,7 @@
 class Axo_Pate : public Drawable
 {
 public:
-    Axo_Pate(const float size, const float rot, const float rotM, const bool type_pied);
+    Axo_Pate(const float size, const float rot, const float rotM, const bool type_pied, const float r, const float g, const float b);
     Axo_Pate();
     //Permet de changer la rotation entre l'avant bras et le bras
     void setRotationCoude(float rot);
