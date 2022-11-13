@@ -20,7 +20,7 @@ char presse;
     this->b = 207 / 255.f;
 */
 
-Axolotl Axo{1.0f};
+Axolotl Axo{2.5f};
 Sol sol;
 
 float distance = 7;

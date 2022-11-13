@@ -24,6 +24,7 @@ Axolotl::Axolotl(const float size, const float r_, const float g_, const float b
 
     this->lCorp = size*1.8f;
     this->hCorp = size*0.45;
+    this->setPosition(0, 0, 0);
 
     this->tete = Axo_Tete(size, r, g, b);
     this->corp = Axo_Corp(size);
@@ -37,7 +38,7 @@ Axolotl::Axolotl(const float size, const float r_, const float g_, const float b
 void Axolotl::setPosition(const float x, const float y, const float z)
 {
     this->px = x;
-    this->py = y;
+    this->py = y+hCorp;
     this->pz = z;
 }
 

@@ -26,16 +26,18 @@ class Axolotl : public Drawable
         /* Couleur */
         float r, g, b;
 
+        //Longueur du corp, hauteur du corps
         float lCorp, hCorp;
 
+        //Facteur de taille
         float size;
 
-        /* Position */
+        /* Position de l'axolotl*/
         float px, py, pz;
 
         Axo_Tete tete;
         Axo_Corp corp;
-        Axo_Pate md, mg, pg, pd;
+        Axo_Pate md, mg, pg, pd; //main droite, main gauche, pied gauche, pied droit
         Axo_Queue queue;
 };
 

@@ -27,41 +27,17 @@ void Axo_Main::draw()
     glPopMatrix();
 
     //TODO peut être réaliser la suite dans une unique boucle for
-    /*  Premier doigt  */
-    glPushMatrix();
-        glColor3f(r, g, b);
-        glRotatef(60, 0, 1, 0);
-        glTranslatef(Rmain, 0, 0);
-        glScalef(2, 0.5, 1);
-        glutSolidSphere(Rdoigt, 20, 20);
-    glPopMatrix();
 
-    /*  Deuxième doigt  */
-    glPushMatrix();
-        glColor3f(r, g, b);
-        glRotatef(20, 0, 1, 0);
-        glTranslatef(Rmain, 0, 0);
-        glScalef(2, 0.5, 1);
-        glutSolidSphere(Rdoigt, 20, 20);
-    glPopMatrix();
-
-    /*  Troisème doigt  */
-    glPushMatrix();
-        glColor3f(r, g, b);
-        glRotatef(-20, 0, 1, 0);
-        glTranslatef(Rmain, 0, 0);
-        glScalef(2, 0.5, 1);
-        glutSolidSphere(Rdoigt, 20, 20);
-    glPopMatrix();
-
-    /*  Quatrième doigt  */
-    glPushMatrix();
-        glColor3f(r, g, b);
-        glRotatef(-60, 0, 1, 0);
-        glTranslatef(Rmain, 0, 0);
-        glScalef(2, 0.5, 1);
-        glutSolidSphere(Rdoigt, 20, 20);
-    glPopMatrix();
+    for(int i = 0; i < 4; i++)
+    {
+        glPushMatrix();
+            glColor3f(r, g, b);
+            glRotatef(60 - (40*i), 0, 1, 0);
+            glTranslatef(Rmain, 0, 0);
+            glScalef(2, 0.5, 1);
+            glutSolidSphere(Rdoigt, 20, 20);
+        glPopMatrix();
+    }
 
     /*  Cinquième doigts, si la main est une main de pate arrière  */
     if (this->cinqDoigts)

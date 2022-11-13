@@ -18,6 +18,7 @@ public:
 
 private:
 
+    //Simple sutructure de point pour gerer les normals (et les calculs qui y sont attachés)
     struct Point
     {
         float x, y, z;
@@ -43,18 +44,26 @@ private:
         }
     };
 
+    //Permet de modeliser les flageles sur le dos
     void flageleMod();
 
+    //Génère les coords des points, les faces et les normals
     void generateCyl();
 
+    //Permet de stoquer la texture du dos
     unsigned char texture[512][512][3];
+    //Fonction permettant le lire une image et de la stocker dans texture
     void loadJpegImage(char *fichier);
 
+    //Couleurs du corp
     float r, g, b;
+    //Proportion du corp
     float size;
 
+    //Rayon et longueur du corps
     float rCyl, hCyl;
 
+    //Tableau stockant les données du cylindre (points, faces et normals)
     float pCyl[2 * NBFACE + 2][3];
     unsigned fCyl[NBFACE][4];
     Point nCyl[NBFACE];

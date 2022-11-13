@@ -11,11 +11,13 @@ public:
     void draw();
 
 private:
+    //Rayon de la main
     float Rmain;
+    //Rayon des doigts
     float Rdoigt;
-
+    //Couleurs de la main
     float r, g, b;
-
+    //Permettra de dessiner, ou non un 5eme doigt (suivant la nature du membre (main -> 4, pied -> 5)
     bool cinqDoigts;
 
 };
