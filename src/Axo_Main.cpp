@@ -14,7 +14,7 @@ Axo_Main::Axo_Main(const float size, const bool cinqDoigts)//constructeur
 
 Axo_Main::Axo_Main()
 {
-    Axo_Main(1.0f, false);
+    //Axo_Main(1.0f, false);
 }
 
 void Axo_Main::draw()

@@ -4,7 +4,6 @@
 #include "../include/Axo_Pate.h"
 #include "../include/Axo_Tete.h"
 
-
 Axo_Corp::Axo_Corp(const float size)
 {
     //---Attributs---//
@@ -16,74 +15,49 @@ Axo_Corp::Axo_Corp(const float size)
 
     this->rCyl = size * 0.45;
     this->hCyl = size * 1.8;
-    this->nbFaces = 100;
-    this->pCyl = new float* [2 * nbFaces + 2];
-
-    for (int i = 0; i < 2 * nbFaces + 2; i++)
-    {
-        pCyl[i] = new float[3];
-    }
-
-    this->fCyl = new unsigned* [nbFaces];
-    this->nCyl = new Point[nbFaces];
-
-    for (int i = 0; i < nbFaces; i++)
-    {
-        fCyl[i] = new unsigned[4];
-    }
-
-    this->tete = Axo_Tete(size);
-    this->md = Axo_Pate(size, 0.0f, -20.0f, false);
-    this->mg = Axo_Pate(size, 60.0f, 0.0f, false);
-    this->pd = Axo_Pate(size, 20.0f, 0.0f, true);
-    this->pg = Axo_Pate(size, 20.0f, 0.0f, true);
-    this->queue = Axo_Queue(size);
 
     generateCyl();
 }
 
-Axo_Corp::Axo_Corp()
-{
-    Axo_Corp(1.0f);
-}
+Axo_Corp::Axo_Corp() : Axo_Corp (1.0f) {}
 
 void Axo_Corp::generateCyl()      //genere un cylindre de nbFaces
 {
-    for (int i = 0; i < nbFaces; i++)
+    for (int i = 0; i < NBFACE; i++)
     {
         //base
-        pCyl[i][0] = rCyl * cos(i * 2 * M_PI / nbFaces);  //coordonnées x
+        pCyl[i][0] = rCyl * cos(i * 2 * M_PI / NBFACE);  //coordonnées x
         pCyl[i][1] = 0;                           //coordonnées y
-        pCyl[i][2] = rCyl * sin(i * 2 * M_PI / nbFaces);  //coordonnées z
+        pCyl[i][2] = rCyl * sin(i * 2 * M_PI / NBFACE);  //coordonnées z
 
         //couvercle
-        pCyl[i + nbFaces][0] = rCyl * cos(i * 2 * M_PI / nbFaces);//coordonnées x
-        pCyl[i + nbFaces][1] = hCyl;                      //coordonnées y
-        pCyl[i + nbFaces][2] = rCyl * sin(i * 2 * M_PI / nbFaces);//coordonnées z
+        pCyl[i + NBFACE][0] = rCyl * cos(i * 2 * M_PI / NBFACE);//coordonnées x
+        pCyl[i + NBFACE][1] = hCyl;                      //coordonnées y
+        pCyl[i + NBFACE][2] = rCyl * sin(i * 2 * M_PI / NBFACE);//coordonnées z
 
     }
 
     //point milieu base
-    pCyl[nbFaces * 2][0] = 0;//coordonnées x
-    pCyl[nbFaces * 2][1] = 0;//coordonnées y
-    pCyl[nbFaces * 2][2] = 0;//coordonnées z
+    pCyl[NBFACE * 2][0] = 0;//coordonnées x
+    pCyl[NBFACE * 2][1] = 0;//coordonnées y
+    pCyl[NBFACE * 2][2] = 0;//coordonnées z
 
     //point milieu couvercle
-    pCyl[2 * nbFaces + 1][0] = 0;   //coordonnées x
-    pCyl[2 * nbFaces + 1][1] = hCyl;//coordonnées y
-    pCyl[2 * nbFaces + 1][2] = 0;   //coordonnées z
+    pCyl[2 * NBFACE + 1][0] = 0;   //coordonnées x
+    pCyl[2 * NBFACE + 1][1] = hCyl;//coordonnées y
+    pCyl[2 * NBFACE + 1][2] = 0;   //coordonnées z
 
     //-----Faces-----//
-    for (int i = 0; i < nbFaces; i++)
+    for (int i = 0; i < NBFACE; i++)
     {
         //il y en a 4 car il y a 4 coordonnées dans un rectangle(=une face)
         fCyl[i][0] = i;
-        fCyl[i][1] = (i + 1) % nbFaces;
-        fCyl[i][2] = ((i + 1) % nbFaces) + nbFaces;
-        fCyl[i][3] = i + nbFaces;
+        fCyl[i][1] = (i + 1) % NBFACE;
+        fCyl[i][2] = ((i + 1) % NBFACE) + NBFACE;
+        fCyl[i][3] = i + NBFACE;
     }
 
-    for (int i = 0; i < nbFaces; i++)
+    for (int i = 0; i < NBFACE; i++)
     {
         //Vecteur AB
         Point ab{
@@ -104,49 +78,6 @@ void Axo_Corp::generateCyl()      //genere un cylindre de nbFaces
 
 void Axo_Corp::draw()
 {
-    /*
-    /*  Modelisation et placement de la main droite
-    glPushMatrix();
-        glTranslatef(0.8 * hCyl, -rCyl*0.40, rCyl * 0.8);
-        glRotatef(20, 0, 0, 1);
-        glRotatef(-130, 0, 1, 0);
-        md.draw();
-    glPopMatrix();
-
-    /*  Modelisation et placement de la main gauche
-    glPushMatrix();
-        glTranslatef(0.8 * hCyl, -rCyl*0.40, -rCyl * 0.8);
-        glRotatef(130, 0, 1, 0);
-        glRotatef(180, 1, 0, 0);
-        glRotatef(20, 0, 0, 1);
-        mg.draw();
-    glPopMatrix();
-
-    /*  Modelisation et placement du pied droit
-    glPushMatrix();
-        glTranslatef(0.1 * hCyl, -rCyl*0.40, rCyl * 0.8);
-        glRotatef(-100, 0, 1, 0);
-        glRotatef(180, 1, 0, 0);
-        glRotatef(20, 0, 0, 1);
-        pd.draw();
-    glPopMatrix();
-
-    /*  Modelisation et placement du pied gauche
-    glPushMatrix();
-        glTranslatef(0.1 * hCyl, -rCyl*0.40, -rCyl * 0.8);
-        glRotatef(20, 0, 0, 1);
-        glRotatef(140, 0, 1, 0);
-        pg.draw();
-    glPopMatrix();
-
-    /*  Modelisation et placement de la tete
-    glPushMatrix();
-        glTranslatef(hCyl, 0, 0);
-        glScalef(0.4, 0.4, 0.4);
-        tete.draw();
-    glPopMatrix();
-    */
-
     /*--------------------construction, mise en couleur du cylindre--------------------*/
 
     //-----Dessin de la base du corp-----//
@@ -161,7 +92,7 @@ void Axo_Corp::draw()
         glBegin(GL_POLYGON);
 
             //-----Dessin de la base du cylindre-----//
-            for (int i = 0; i < nbFaces; i++)
+            for (int i = 0; i < NBFACE; i++)
             {
                 glVertex3f(pCyl[i][0], pCyl[i][1], pCyl[i][2]);
             }
@@ -172,14 +103,14 @@ void Axo_Corp::draw()
         glNormal3f(0.0f, 1.0f, 0.0f);
         glBegin(GL_POLYGON);
             glColor3f(r, g, b);
-            for (int i = 0; i < nbFaces; i++)
+            for (int i = 0; i < NBFACE; i++)
             {
-                glVertex3f(pCyl[i + nbFaces][0], pCyl[i + nbFaces][1], pCyl[i + nbFaces][2]);
+                glVertex3f(pCyl[i + NBFACE][0], pCyl[i + NBFACE][1], pCyl[i + NBFACE][2]);
             }
         glEnd();
 
         glColor3f(r, g, b);
-        for (int i = 0; i < nbFaces; i++)
+        for (int i = 0; i < NBFACE; i++)
         {
             glNormal3f(nCyl[i].x, nCyl[i].y, nCyl[i].z);
             glBegin(GL_POLYGON);
@@ -262,21 +193,4 @@ void Axo_Corp::flageleMod()
 
     glPopMatrix();
 
-}
-
-Axo_Corp::~Axo_Corp()
-{
-
-    for (int i = 0; i < 2 * nbFaces + 2; i++)
-    {
-        delete pCyl[i];
-    }
-    delete pCyl;
-
-    for (int i = 0; i < nbFaces; i++)
-    {
-        delete fCyl[i];
-    }
-    delete fCyl;
-    delete nCyl;
 }

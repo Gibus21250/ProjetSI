@@ -1,13 +1,11 @@
-/* inclusion des fichiers d'en-tete freeglut */
-
 #ifdef __APPLE__
 #include <GLUT/glut.h> /* Pour Mac OS X */
 #else
 #include <GL/glut.h>   /* Pour les autres systemes */
 #endif
 #include <cstdlib>
+
 #include "Axolotl.h"
-#include "Axo_Corp.h"
 
 //Variable translation générales
 float rx = 0, ry = 0, rz = 0;
@@ -15,8 +13,13 @@ float rx = 0, ry = 0, rz = 0;
 int anglex, angley, x, y, xold, yold;
 char presse;
 
-Axolotl Axo(1.0f), Axo2(1.0f);
-Axo_Corp corp(1.0f);
+/*
+    this->r = 243 / 255.f;
+    this->g = 196 / 255.f;
+    this->b = 207 / 255.f;
+*/
+
+Axolotl Axo{1.0f};
 
 float distance = 7;
 
@@ -31,11 +34,6 @@ void mousemotion(int x, int y);
 void axolotl()
 {
     Axo.draw();
-    glPushMatrix();
-    glTranslatef(2, 0, 5);
-    glRotatef(90, 0, 1, 0);
-    Axo2.draw();
-    glPopMatrix();
 }
 
 int main(int argc, char** argv)
@@ -72,11 +70,17 @@ int main(int argc, char** argv)
     glutReshapeFunc(reshape);
     glutMouseFunc(mouse);
     glutMotionFunc(mousemotion);
+    glutIdleFunc(idle);
 
     /* Entree dans la boucle principale glut */
     glutMainLoop();
 
     return 0;
+}
+
+void idle()
+{
+    affichage();
 }
 
 void affichage()
@@ -87,12 +91,12 @@ void affichage()
     //TODO switch entre perspective et ortho
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-distance, distance, -distance, distance, 0.1, 50);
-    //gluPerspective(90, 1, 0.1, 25);
+    //glOrtho(-distance, distance, -distance, distance, 0.1, 50);
+    gluPerspective(90, 1, 0.01, 25);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluLookAt(0.0, 0, distance, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+    gluLookAt(0.0, 0.0, distance, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
     glRotatef(angley, 1.0, 0.0, 0.0);
     glRotatef(anglex, 0.0, 1.0, 0.0);
 
@@ -102,7 +106,6 @@ void affichage()
     glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
     axolotl();
-
 
     //Repère
     //axe x en rouge
@@ -181,6 +184,9 @@ void clavier(unsigned char touche, int x, int y)
         break;
     case '3':
         ry -= 0.1;
+        break;
+    case ' ':
+        Axo.tirerLaLangue();
         break;
     case 'q': /*la touche 'q' permet de quitter le programme */
         exit(0);

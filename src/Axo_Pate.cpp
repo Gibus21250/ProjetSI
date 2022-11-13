@@ -25,7 +25,7 @@ Axo_Pate::Axo_Pate(const float size, const float rot, const float rotM, const bo
 
 Axo_Pate::Axo_Pate()
 {
-    Axo_Pate(1.0f, 0.0f, 0.0f, false);
+    //Axo_Pate(1.0f, 0.0f, 0.0f, false);
 }
 
 void Axo_Pate::setRotationCoude(float rot)
@@ -55,7 +55,7 @@ void Axo_Pate::draw()
         glTranslatef(-(LBras + 1 / 2. * Rcoude), 0, 0);
         /*  Coude  */
         glPushMatrix();
-            glColor3f(r - 0.1, g + 0.2, b + 0.1);
+            glColor3f(r, g, b);
             glTranslatef(LBras + 1 / 2. * Rcoude, 0, 0);
             glutSolidSphere(Rcoude, 20, 20);
         glPopMatrix();

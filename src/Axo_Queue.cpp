@@ -22,7 +22,7 @@ Axo_Queue::Axo_Queue(const float size)
 
 Axo_Queue::Axo_Queue()
 {
-    Axo_Queue(1.0f);
+    //Axo_Queue(1.0f);
 }
 
 void Axo_Queue::draw()

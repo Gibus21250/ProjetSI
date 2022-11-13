@@ -6,9 +6,13 @@
 class Axo_Tete : public Drawable
 {
 public:
+    Axo_Tete(const float size, const float r, const float g, const float b);
     Axo_Tete(const float size);
     Axo_Tete();
+
     void draw();
+
+    void tirerLangue();
 
 private:
     float Rtete;
@@ -17,6 +21,9 @@ private:
     float Rpupille;
 
     float size;
+
+    int frames;
+    bool direction;
 
     float hBranchies;
     float lBranchies;

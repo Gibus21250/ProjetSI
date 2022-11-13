@@ -12,6 +12,8 @@
 #include <math.h>
 #endif
 
+#define NBFACE 100
+
 class Axo_Corp : public Drawable
 {
 public:
@@ -19,8 +21,6 @@ public:
     Axo_Corp();
     void draw();
     void generateCyl();
-
-    ~Axo_Corp();
 
 private:
 
@@ -53,15 +53,12 @@ private:
 
     float r, g, b;
     float size;
-    int nbFaces; //TODO peut être supprimer cet attribut
-    float rCyl, hCyl;
-    float** pCyl;
-    unsigned** fCyl;
-    Point* nCyl;
 
-    Axo_Tete tete;
-    Axo_Pate md, mg, pd, pg;
-    Axo_Queue queue;
+    float rCyl, hCyl;
+
+    float pCyl[2 * NBFACE + 2][3];
+    unsigned fCyl[NBFACE][4];
+    Point nCyl[NBFACE];
 
 };
 

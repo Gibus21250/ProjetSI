@@ -2,8 +2,18 @@
 #include <math.h>
 
 #include "../include/Axo_Tete.h"
-Axo_Tete::Axo_Tete(const float size)
+
+#include <iostream>
+
+#define DURATION 500.0f
+
+Axo_Tete::Axo_Tete(const float size) : Axo_Tete{size, 243 / 255., 196 / 255., 207 / 255.} {}
+
+Axo_Tete::Axo_Tete(){}
+
+Axo_Tete::Axo_Tete(const float size, const float r_, const float g_, const float b_)
 {
+
     this->Rtete = size*1.0;
     this->Rmuseau = size*1.0;
     this->Ryeux = size*0.2;
@@ -11,14 +21,17 @@ Axo_Tete::Axo_Tete(const float size)
 
     this->size = size;
 
-    this->r = 243 / 255.;
-    this->g = 196 / 255.;
-    this->b = 207 / 255.;
+    this->r = r_;
+    this->g = g_;
+    this->b = b_;
 
     this->hBranchies = 1;
     this->lBranchies = 1 / 4.;
 
     this->Rsourir = size*0.6;
+
+    this->frames = 0;
+    this->direction = false;
 
     //pour la langue qui sort
     this->Ll = size*1;
@@ -30,9 +43,10 @@ Axo_Tete::Axo_Tete(const float size)
     this->by = 1;
 }
 
-Axo_Tete::Axo_Tete()
+void Axo_Tete::tirerLangue()
 {
-    Axo_Tete(1.0f);
+    this->frames = 0;
+    this->direction = true;
 }
 
 void Axo_Tete::draw()
@@ -115,8 +129,9 @@ void Axo_Tete::draw()
 
     //-----Langue-----//
     glPushMatrix();
-        glTranslatef(Rtete / 2 + Rmuseau / 8, -0.6 * Rtete, 0);
-        //faire sortie la langue entre x=Rtete/2+Rmuseau*0.7 (sortie) et x=Rtete/2+Rmuseau/8(rentrée)
+    float tx = (frames/(DURATION)) * Rmuseau*0.7;
+        glTranslatef(Rtete/2 + tx, -0.6 * Rtete, 0);
+        //faire sortie la langue entre x=Rtete/2 + Rmuseau*0.7 (sortie) et x=Rtete/2+Rmuseau/8(rentrée)
         glPushMatrix();
             glColor3f(1, 0.3, 0.3);
             glScalef(Ll, Hl, Rsourir);
@@ -129,6 +144,13 @@ void Axo_Tete::draw()
             glScalef(1, 0.2, 1);
             glutSolidSphere(Rsourir / 2, 20, 20);
         glPopMatrix();
+    //Si la langue se pousse
+    if(direction && frames < DURATION){
+        ++frames;
+        if(frames == DURATION) direction = false;
+    }else if (frames > 0 && !direction){
+    --frames;
+    }
 
     glPopMatrix();
 }
