@@ -20,7 +20,7 @@ Axo_Corp::Axo_Corp(const float size)
     this->hCyl = size * 1.8;
 
     generateCyl();
-    loadJpegImage("./Axo_TextureStriesInverses.jpg");
+    loadJpegImage((char*)"./Axo_TextureStriesInverses.jpg");
 }
 
 Axo_Corp::Axo_Corp() : Axo_Corp (1.0f) {}
@@ -113,6 +113,7 @@ void Axo_Corp::draw()
             }
         glEnd();
         //Dessin des faces du corp
+        glEnable(GL_TEXTURE_2D);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
         glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,512,512,0,GL_RGB,GL_UNSIGNED_BYTE,texture);
@@ -131,13 +132,13 @@ void Axo_Corp::draw()
                 glVertex3f(pCyl[fCyl[i][3]][0], pCyl[fCyl[i][3]][1], pCyl[fCyl[i][3]][2]);
             glEnd();
         }
+        glDisable(GL_TEXTURE_2D);
 
     glPopMatrix();
 
     flageleMod();
 
-    //queue.draw();
-
+    glColor3f(1.0f, 1.0f, 1.0f);
 }
 
 void Axo_Corp::loadJpegImage(char *fichier)

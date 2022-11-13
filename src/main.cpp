@@ -6,6 +6,7 @@
 #include <cstdlib>
 
 #include "Axolotl.h"
+#include "Sol.h"
 
 //Variable translation générales
 float rx = 0, ry = 0, rz = 0;
@@ -20,6 +21,7 @@ char presse;
 */
 
 Axolotl Axo{1.0f};
+Sol sol;
 
 float distance = 7;
 
@@ -34,6 +36,7 @@ void mousemotion(int x, int y);
 void axolotl()
 {
     Axo.draw();
+    sol.draw();
 }
 
 int main(int argc, char** argv)
@@ -47,7 +50,7 @@ int main(int argc, char** argv)
 
 
     /* Initialisation d'OpenGL */
-    glClearColor(0.0, 0.0, 0.0, 0.0);
+    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glColor3f(1.0, 1.0, 1.0);
     glPointSize(2.0);
     glEnable(GL_DEPTH_TEST);
@@ -57,7 +60,6 @@ int main(int argc, char** argv)
     glEnable(GL_NORMALIZE);
     glEnable(GL_LIGHTING);
     glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_TEXTURE_2D);
 
     GLfloat lmodel_ambient[] = { 0.2, 0.2, 0.2, 1.0 };
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lmodel_ambient);
@@ -92,8 +94,8 @@ void affichage()
     //TODO switch entre perspective et ortho
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-distance, distance, -distance, distance, 0.1, 50);
-    //gluPerspective(90, 1, 0.01, 25);
+    //glOrtho(-distance, distance, -distance, distance, 0.1, 50);
+    gluPerspective(90, 1, 0.01, 25);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();

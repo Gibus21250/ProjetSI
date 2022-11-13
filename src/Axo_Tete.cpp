@@ -213,4 +213,6 @@ void Axo_Tete::modBranchies()
         glPopMatrix();
     glPopMatrix();
 
+    glColor3f(1.0f, 1.0f, 1.0f);
+
 }

@@ -5,12 +5,7 @@
 #include "Axo_Pate.h"
 #include "Axo_Queue.h"
 
-#ifdef _WIN32
-#define _USE_MATH_DEFINES
 #include <cmath>
-#elif __linux__
-#include <math.h>
-#endif
 
 #define NBFACE 100
 

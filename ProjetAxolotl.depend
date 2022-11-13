@@ -46,7 +46,7 @@
 	<cstdlib>
 	"../include/Axo_Corp.h"
 
-1668337247 source:/home/nathan/Documents/ProjetSI/src/Axo_Corp.cpp
+1668341919 source:/home/nathan/Documents/ProjetSI/src/Axo_Corp.cpp
 	<GL/freeglut.h>
 	<cstdlib>
 	<stdio.h>
@@ -55,12 +55,11 @@
 	"../include/Axo_Pate.h"
 	"../include/Axo_Tete.h"
 
-1668336731 /home/nathan/Documents/ProjetSI/include/Axo_Corp.h
+1668340028 /home/nathan/Documents/ProjetSI/include/Axo_Corp.h
 	"Axo_Tete.h"
 	"Axo_Pate.h"
 	"Axo_Queue.h"
 	<cmath>
-	<math.h>
 
 1668302918 /home/nathan/Documents/ProjetSI/include/Axo_Tete.h
 	"Drawable.h"
@@ -76,31 +75,32 @@
 1668270983 /home/nathan/Documents/ProjetSI/include/Axo_Queue.h
 	"Drawable.h"
 
-1668296281 source:/home/nathan/Documents/ProjetSI/src/Axo_Main.cpp
+1668341671 source:/home/nathan/Documents/ProjetSI/src/Axo_Main.cpp
 	<GL/glut.h>
 	"../include/Axo_Main.h"
 
-1668299509 source:/home/nathan/Documents/ProjetSI/src/Axo_Pate.cpp
+1668341671 source:/home/nathan/Documents/ProjetSI/src/Axo_Pate.cpp
 	"GL/freeglut.h"
 	"../include/Axo_Pate.h"
 	"../include/Axo_Main.h"
 
-1668296747 source:/home/nathan/Documents/ProjetSI/src/Axo_Queue.cpp
+1668341671 source:/home/nathan/Documents/ProjetSI/src/Axo_Queue.cpp
 	<GL/freeglut.h>
 	"../include/Axo_Queue.h"
 	"../include/Drawable.h"
 
-1668337407 source:/home/nathan/Documents/ProjetSI/src/Axo_Tete.cpp
+1668341671 source:/home/nathan/Documents/ProjetSI/src/Axo_Tete.cpp
 	"GL/glut.h"
 	<math.h>
 	"../include/Axo_Tete.h"
 	<iostream>
 
-1668337439 source:/home/nathan/Documents/ProjetSI/src/main.cpp
+1668342044 source:/home/nathan/Documents/ProjetSI/src/main.cpp
 	<GLUT/glut.h>
 	<GL/glut.h>
 	<cstdlib>
 	"Axolotl.h"
+	"Sol.h"
 
 1668303025 source:/home/nathan/Documents/ProjetSI/src/Axolotl.cpp
 	"Axolotl.h"
@@ -108,9 +108,20 @@
 	<iostream>
 	<time.h>
 
-1668301376 /home/nathan/Documents/ProjetSI/include/Axolotl.h
+1668340616 /home/nathan/Documents/ProjetSI/include/Axolotl.h
 	"Axo_Tete.h"
 	"Axo_Corp.h"
 	"Axo_Pate.h"
 	"Axo_Queue.h"
+	"Drawable.h"
+
+1668342026 source:/home/nathan/Documents/ProjetSI/src/Sol.cpp
+	"Sol.h"
+	<GL/freeglut.h>
+	<cstdlib>
+	<stdio.h>
+	<jpeglib.h>
+
+1668340834 /home/nathan/Documents/ProjetSI/include/Sol.h
+	"Drawable.h"
 

@@ -75,4 +75,6 @@ void Axo_Main::draw()
         glPopMatrix();
     }
 
+    glColor3f(1.0f, 1.0f, 1.0f);
+
 }

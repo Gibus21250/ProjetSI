@@ -6,6 +6,8 @@
 #include "Axo_Pate.h"
 #include "Axo_Queue.h"
 
+#include "Drawable.h"
+
 class Axolotl : public Drawable
 {
     public:

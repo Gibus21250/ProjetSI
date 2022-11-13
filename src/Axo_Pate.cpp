@@ -75,4 +75,6 @@ void Axo_Pate::draw()
             this->main.draw();
         glPopMatrix();
     glPopMatrix();
+
+    glColor3f(1.0f, 1.0f, 1.0f);
 }

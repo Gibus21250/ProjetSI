@@ -29,6 +29,8 @@ void Axo_Queue::draw()
 {
     modeliser();
     flagelemMod();
+
+    glColor3f(1.0f, 1.0f, 1.0f);
 }
 
 void Axo_Queue::modeliser()
