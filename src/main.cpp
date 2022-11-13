@@ -4,6 +4,7 @@
 #include <GL/glut.h>   /* Pour les autres systemes */
 #endif
 #include <cstdlib>
+#include <iostream>
 
 #include "Axolotl.h"
 #include "Sol.h"
@@ -12,7 +13,7 @@
 float rx = 0, ry = 0, rz = 0;
 
 int anglex, angley, x, y, xold, yold;
-char presse;
+bool presseAngle = false, presseTranslation;
 float cposx = 0, cposy = 0, cposz = 5;
 
 /*
@@ -93,15 +94,14 @@ void affichage()
     //TODO switch entre perspective et ortho
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    //glOrtho(-distance, distance, -distance, distance, 0.1, 50);
-    gluPerspective(90, 1, 0.01, 25);
+    glOrtho(-cposz, cposz, -cposz, cposz, 0.1, 50);
+    //gluPerspective(90, 1, 0.01, 25);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluLookAt(cposx, cposy, cposz, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+    gluLookAt(cposx, cposy, cposz, cposx, cposy, cposz - 5, 0.0, 1.0, 0.0);
     glRotatef(angley, 1.0, 0.0, 0.0);
     glRotatef(anglex, 0.0, 1.0, 0.0);
-
 
     GLfloat light_position[] = { 0.0f, 1.0f, 1.0f, 1.0 };
 
@@ -164,28 +164,10 @@ void clavier(unsigned char touche, int x, int y)
         glPolygonMode(GL_FRONT, GL_LINE);
         glutPostRedisplay();
         break;
-    case '8':
-        rz += 0.1;
-        break;
-    case '2':
-        rz -= 0.1;
-        break;
-    case '6':
-        rx += 0.1;
-        break;
-    case '4':
-        rx -= 0.1;
-        break;
-    case '9':
-        ry += 0.1;
-        break;
-    case '5':
-        ry = 0;
-        rx = 0;
-        rz = 0;
-        break;
-    case '3':
-        ry -= 0.1;
+    case 'r':
+        cposx = 0;
+        cposy = 0;
+        cposz = 5;
         break;
     case ' ':
         Axo.tirerLaLangue();
@@ -208,24 +190,29 @@ void mouse(int button, int state, int x, int y)
     /* si on appuie sur le bouton gauche */
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
     {
-        presse = 1; /* le booleen presse passe a 1 (vrai) */
+        presseAngle = true; /* le booleen presse passe a 1 (vrai) */
         xold = x; /* on sauvegarde la position de la souris */
         yold = y;
     }
 
-    //if(button == 3 || )
-
   /* si on relache le bouton gauche */
     if (button == GLUT_LEFT_BUTTON && state == GLUT_UP)
     {
-        presse = 0; /* le booleen presse passe a 0 (faux) */
+        presseAngle = false; /* le booleen presse passe a 0 (faux) */
     }
 
+        /* si on appuie sur le bouton gauche */
     if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN)
     {
-        presse = 1; /* le booleen presse passe a 1 (vrai) */
-        cposx += x - xold;
-        cposy += y - yold;
+        presseTranslation = true; /* le booleen presse passe a 1 (vrai) */
+        xold = x; /* on sauvegarde la position de la souris */
+        yold = y;
+    }
+
+  /* si on relache le bouton gauche */
+    if (button == GLUT_RIGHT_BUTTON && state == GLUT_UP)
+    {
+        presseTranslation = false; /* le booleen presse passe a 0 (faux) */
     }
 
     std::cout << cposx << " " << cposy << " " << cposz << " " << std::endl;
@@ -238,14 +225,22 @@ void mouse(int button, int state, int x, int y)
 
 void mousemotion(int x, int y)
 {
-    if (presse) /* si le bouton gauche est presse */
+    if (presseAngle) /* si le bouton gauche est presse */
     {
         /* on modifie les angles de rotation de l'objet
        en fonction de la position actuelle de la souris et de la derniere
        position sauvegardee */
         anglex = anglex + (x - xold);
         angley = angley + (y - yold);
+        if(angley > 90) angley = 90;
+        if(angley < -90) angley = -90;
         glutPostRedisplay(); /* on demande un rafraichissement de l'affichage */
+    }
+
+    if(presseTranslation)
+    {
+        cposx += 0.01*(x - xold);
+        cposy += 0.01*(y - yold);
     }
 
     xold = x; /* sauvegarde des valeurs courante de le position de la souris */
