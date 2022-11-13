@@ -13,6 +13,7 @@ float rx = 0, ry = 0, rz = 0;
 
 int anglex, angley, x, y, xold, yold;
 char presse;
+float cposx = 0, cposy = 0, cposz = 5;
 
 /*
     this->r = 243 / 255.f;
@@ -20,10 +21,8 @@ char presse;
     this->b = 207 / 255.f;
 */
 
-Axolotl Axo{2.5f};
+Axolotl Axo{1.0f};
 Sol sol;
-
-float distance = 7;
 
 /* Prototype des fonctions */
 void affichage();
@@ -99,7 +98,7 @@ void affichage()
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluLookAt(0.0, 0.0, distance, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+    gluLookAt(cposx, cposy, cposz, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
     glRotatef(angley, 1.0, 0.0, 0.0);
     glRotatef(anglex, 0.0, 1.0, 0.0);
 
@@ -223,10 +222,10 @@ void mouse(int button, int state, int x, int y)
     }
 
 
-    if (button == 4 && distance < 20)
-        distance += 0.1;
-    if (button == 3 && distance > 0.1)
-        distance -= 0.1;
+    if (button == 4 && cposz < 20)
+        cposz += 0.1;
+    if (button == 3 && cposz > 0.1)
+        cposz -= 0.1;
 }
 
 void mousemotion(int x, int y)
