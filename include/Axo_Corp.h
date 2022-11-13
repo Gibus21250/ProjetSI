@@ -20,7 +20,6 @@ public:
     Axo_Corp(const float size);
     Axo_Corp();
     void draw();
-    void generateCyl();
 
 private:
 
@@ -50,6 +49,11 @@ private:
     };
 
     void flageleMod();
+
+    void generateCyl();
+
+    unsigned char texture[512][512][3];
+    void loadJpegImage(char *fichier);
 
     float r, g, b;
     float size;

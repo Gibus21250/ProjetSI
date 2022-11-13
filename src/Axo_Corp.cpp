@@ -1,4 +1,7 @@
 #include <GL/freeglut.h>
+#include <cstdlib>
+#include <stdio.h>
+#include <jpeglib.h>
 
 #include "../include/Axo_Corp.h"
 #include "../include/Axo_Pate.h"
@@ -17,6 +20,7 @@ Axo_Corp::Axo_Corp(const float size)
     this->hCyl = size * 1.8;
 
     generateCyl();
+    loadJpegImage("./Axo_TextureStriesInverses.jpg");
 }
 
 Axo_Corp::Axo_Corp() : Axo_Corp (1.0f) {}
@@ -108,19 +112,22 @@ void Axo_Corp::draw()
                 glVertex3f(pCyl[i + NBFACE][0], pCyl[i + NBFACE][1], pCyl[i + NBFACE][2]);
             }
         glEnd();
-
+        //Dessin des faces du corp
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+        glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,512,512,0,GL_RGB,GL_UNSIGNED_BYTE,texture);
         glColor3f(r, g, b);
         for (int i = 0; i < NBFACE; i++)
         {
             glNormal3f(nCyl[i].x, nCyl[i].y, nCyl[i].z);
             glBegin(GL_POLYGON);
-                //glTexCoord2f(0.0,0.5);
+                glTexCoord2f(i/(double)NBFACE,1.0);
                 glVertex3f(pCyl[fCyl[i][0]][0], pCyl[fCyl[i][0]][1], pCyl[fCyl[i][0]][2]);
-                //glTexCoord2f(0.5,0.5);
+                glTexCoord2f((i+1)/(double)NBFACE,1.0);
                 glVertex3f(pCyl[fCyl[i][1]][0], pCyl[fCyl[i][1]][1], pCyl[fCyl[i][1]][2]);
-                //glTexCoord2f(0.5,0.0);
+                glTexCoord2f((i+1)/(double)NBFACE,0.0);
                 glVertex3f(pCyl[fCyl[i][2]][0], pCyl[fCyl[i][2]][1], pCyl[fCyl[i][2]][2]);
-                //glTexCoord2f(0.0,0.0);
+                glTexCoord2f(i/(double)NBFACE,0.0);
                 glVertex3f(pCyl[fCyl[i][3]][0], pCyl[fCyl[i][3]][1], pCyl[fCyl[i][3]][2]);
             glEnd();
         }
@@ -131,6 +138,64 @@ void Axo_Corp::draw()
 
     //queue.draw();
 
+}
+
+void Axo_Corp::loadJpegImage(char *fichier)
+{
+    unsigned char image[3*512*512];
+    struct jpeg_decompress_struct cinfo;
+    struct jpeg_error_mgr jerr;
+    FILE *file;
+    unsigned char *ligne;
+
+    cinfo.err = jpeg_std_error(&jerr);
+    jpeg_create_decompress(&cinfo);
+    #ifdef __WIN32
+    if (fopen_s(&file,fichier,"rb") != 0)
+    {
+      fprintf(stderr,"Erreur : impossible d'ouvrir le fichier texture.jpg\n");
+      exit(1);
+    }
+    #elif __GNUC__
+    if ((file = fopen(fichier,"rb")) == 0)
+    {
+        fprintf(stderr,"Erreur : impossible d'ouvrir le fichier texture.jpg\n");
+        exit(1);
+    }
+    #endif
+    jpeg_stdio_src(&cinfo, file);
+    jpeg_read_header(&cinfo, TRUE);
+
+    if ((cinfo.image_width != 512)||(cinfo.image_height != 512)) {
+        fprintf(stdout,"Erreur : l'image doit etre de taille 512x512\n");
+        exit(1);
+    }
+    if (cinfo.jpeg_color_space==JCS_GRAYSCALE) {
+        fprintf(stdout,"Erreur : l'image doit etre de type RGB\n");
+        exit(1);
+    }
+
+    jpeg_start_decompress(&cinfo);
+    ligne=image;
+    while (cinfo.output_scanline<cinfo.output_height)
+    {
+        ligne=image+3*512*cinfo.output_scanline;
+        jpeg_read_scanlines(&cinfo,&ligne,1);
+    }
+
+    jpeg_finish_decompress(&cinfo);
+    jpeg_destroy_decompress(&cinfo);
+
+    //boucle qui permet de faire la texture
+    for(int i = 0; i<512 ; i++)
+    {
+        for(int j = 0; j<512; j++)
+        {
+            texture[i][j][0] = image[i*512*3+j*3];
+            texture[i][j][1] = image[i*512*3+j*3+1];
+            texture[i][j][2] = image[i*512*3+j*3+2];
+        }
+    }
 }
 
 void Axo_Corp::flageleMod()

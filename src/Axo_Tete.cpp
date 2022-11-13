@@ -129,21 +129,17 @@ void Axo_Tete::draw()
 
     //-----Langue-----//
     glPushMatrix();
-    float tx = (frames/(DURATION)) * Rmuseau*0.7;
-        glTranslatef(Rtete/2 + tx, -0.6 * Rtete, 0);
+    float tx = (frames/(DURATION)) * Rmuseau*0.6;
+        glTranslatef(Rtete/4 + tx, -0.6 * Rtete, 0);
         //faire sortie la langue entre x=Rtete/2 + Rmuseau*0.7 (sortie) et x=Rtete/2+Rmuseau/8(rentrée)
-        glPushMatrix();
-            glColor3f(1, 0.3, 0.3);
-            glScalef(Ll, Hl, Rsourir);
-            glutSolidCube(1);
-        glPopMatrix();
 
         glPushMatrix();
             glColor3f(1, 0.3, 0.3);
             glTranslatef(Ll * 0.5, 0, 0);
-            glScalef(1, 0.2, 1);
+            glScalef(2.2, 0.2, 1);
             glutSolidSphere(Rsourir / 2, 20, 20);
         glPopMatrix();
+
     //Si la langue se pousse
     if(direction && frames < DURATION){
         ++frames;

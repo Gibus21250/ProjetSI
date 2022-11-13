@@ -57,6 +57,7 @@ int main(int argc, char** argv)
     glEnable(GL_NORMALIZE);
     glEnable(GL_LIGHTING);
     glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_TEXTURE_2D);
 
     GLfloat lmodel_ambient[] = { 0.2, 0.2, 0.2, 1.0 };
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lmodel_ambient);
@@ -91,8 +92,8 @@ void affichage()
     //TODO switch entre perspective et ortho
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    //glOrtho(-distance, distance, -distance, distance, 0.1, 50);
-    gluPerspective(90, 1, 0.01, 25);
+    glOrtho(-distance, distance, -distance, distance, 0.1, 50);
+    //gluPerspective(90, 1, 0.01, 25);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
