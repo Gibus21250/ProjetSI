@@ -46,12 +46,14 @@
 		<Unit filename="include/Axo_Tete.h" />
 		<Unit filename="include/Axolotl.h" />
 		<Unit filename="include/Drawable.h" />
+		<Unit filename="include/Sol.h" />
 		<Unit filename="src/Axo_Corp.cpp" />
 		<Unit filename="src/Axo_Main.cpp" />
 		<Unit filename="src/Axo_Pate.cpp" />
 		<Unit filename="src/Axo_Queue.cpp" />
 		<Unit filename="src/Axo_Tete.cpp" />
 		<Unit filename="src/Axolotl.cpp" />
+		<Unit filename="src/Sol.cpp" />
 		<Unit filename="src/main.cpp" />
 		<Extensions />
 	</Project>
