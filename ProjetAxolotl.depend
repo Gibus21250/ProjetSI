@@ -46,7 +46,7 @@
 	<cstdlib>
 	"../include/Axo_Corp.h"
 
-1668341919 source:/home/nathan/Documents/ProjetSI/src/Axo_Corp.cpp
+1668352616 source:/home/nathan/Documents/ProjetSI/src/Axo_Corp.cpp
 	<GL/freeglut.h>
 	<cstdlib>
 	<stdio.h>
@@ -55,13 +55,13 @@
 	"../include/Axo_Pate.h"
 	"../include/Axo_Tete.h"
 
-1668342551 /home/nathan/Documents/ProjetSI/include/Axo_Corp.h
+1668352102 /home/nathan/Documents/ProjetSI/include/Axo_Corp.h
 	"Axo_Tete.h"
 	"Axo_Pate.h"
 	"Axo_Queue.h"
 	<cmath>
 
-1668343038 /home/nathan/Documents/ProjetSI/include/Axo_Tete.h
+1668348983 /home/nathan/Documents/ProjetSI/include/Axo_Tete.h
 	"Drawable.h"
 
 1668274536 /home/nathan/Documents/ProjetSI/include/Drawable.h
@@ -84,18 +84,17 @@
 	"../include/Axo_Pate.h"
 	"../include/Axo_Main.h"
 
-1668341671 source:/home/nathan/Documents/ProjetSI/src/Axo_Queue.cpp
+1668353902 source:/home/nathan/Documents/ProjetSI/src/Axo_Queue.cpp
 	<GL/freeglut.h>
 	"../include/Axo_Queue.h"
 	"../include/Drawable.h"
 
-1668341671 source:/home/nathan/Documents/ProjetSI/src/Axo_Tete.cpp
+1668354075 source:/home/nathan/Documents/ProjetSI/src/Axo_Tete.cpp
 	"GL/glut.h"
 	<math.h>
 	"../include/Axo_Tete.h"
-	<iostream>
 
-1668346151 source:/home/nathan/Documents/ProjetSI/src/main.cpp
+1668363023 source:/home/nathan/Documents/ProjetSI/src/main.cpp
 	<GLUT/glut.h>
 	<GL/glut.h>
 	<cstdlib>
@@ -103,26 +102,26 @@
 	"Axolotl.h"
 	"Sol.h"
 
-1668343495 source:/home/nathan/Documents/ProjetSI/src/Axolotl.cpp
+1668352446 source:/home/nathan/Documents/ProjetSI/src/Axolotl.cpp
 	"Axolotl.h"
 	<GL/freeglut.h>
 	<iostream>
 	<time.h>
 
-1668343090 /home/nathan/Documents/ProjetSI/include/Axolotl.h
+1668349065 /home/nathan/Documents/ProjetSI/include/Axolotl.h
 	"Axo_Tete.h"
 	"Axo_Corp.h"
 	"Axo_Pate.h"
 	"Axo_Queue.h"
 	"Drawable.h"
 
-1668343386 source:/home/nathan/Documents/ProjetSI/src/Sol.cpp
+1668361732 source:/home/nathan/Documents/ProjetSI/src/Sol.cpp
 	"Sol.h"
 	<GL/freeglut.h>
 	<cstdlib>
 	<stdio.h>
 	<jpeglib.h>
 
-1668340834 /home/nathan/Documents/ProjetSI/include/Sol.h
+1668349941 /home/nathan/Documents/ProjetSI/include/Sol.h
 	"Drawable.h"
 

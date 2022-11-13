@@ -9,21 +9,19 @@
 #include "Axolotl.h"
 #include "Sol.h"
 
-//Variable translation générales
-float rx = 0, ry = 0, rz = 0;
+int framesPassed = 0;
 
-int anglex, angley, x, y, xold, yold;
+float anglex, angley;
+int x, y, xold, yold;
 bool presseAngle = false, presseTranslation;
 float cposx = 0, cposy = 0, cposz = 5;
 
-/*
-    this->r = 243 / 255.f;
-    this->g = 196 / 255.f;
-    this->b = 207 / 255.f;
-*/
-
 Axolotl Axo{1.0f};
 Sol sol;
+
+float ratio = 1.0f;
+
+char nbLum = 0;
 
 /* Prototype des fonctions */
 void affichage();
@@ -32,6 +30,7 @@ void reshape(int x, int y);
 void idle();
 void mouse(int bouton, int etat, int x, int y);
 void mousemotion(int x, int y);
+void arrowGestion(int x, int y, int z);
 
 void axolotl()
 {
@@ -45,13 +44,11 @@ int main(int argc, char** argv)
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
     glutInitWindowPosition(100, 100);
-    glutInitWindowSize(1000, 1000);
+    glutInitWindowSize(1024, 1024);
     glutCreateWindow("Axolotl");
-
 
     /* Initialisation d'OpenGL */
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-    glColor3f(1.0, 1.0, 1.0);
     glPointSize(2.0);
     glEnable(GL_DEPTH_TEST);
     glShadeModel(GL_SMOOTH);
@@ -65,7 +62,19 @@ int main(int argc, char** argv)
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lmodel_ambient);
 
 
+    // Lumière Point, ecla  irage global simple avec les valeurs par défaut
     glEnable(GL_LIGHT0);
+
+    // Lumière numéro 1 //
+    glEnable(GL_LIGHT1);
+
+    GLfloat l1_diff[] = { 0.1f, 0.5f, 0.8f, 1.0f };
+    GLfloat l1_spotDir[] = { -1.0f, -1.0f, -1.0f };
+
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, l1_diff);
+    glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, l1_spotDir);
+    // --------------------- //
+
 
     /* enregistrement des fonctions de rappel */
     glutDisplayFunc(affichage);
@@ -74,7 +83,7 @@ int main(int argc, char** argv)
     glutMouseFunc(mouse);
     glutMotionFunc(mousemotion);
     glutIdleFunc(idle);
-
+    glutSpecialFunc(arrowGestion);
     /* Entree dans la boucle principale glut */
     glutMainLoop();
 
@@ -84,28 +93,60 @@ int main(int argc, char** argv)
 void idle()
 {
     affichage();
+
+    ++framesPassed;
+
+    if(framesPassed > 500)
+    {
+       anglex += 0.1;
+    }
 }
 
 void affichage()
 {
     /* effacement de l'image avec la couleur de fond */
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
     //TODO switch entre perspective et ortho
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-cposz, cposz, -cposz, cposz, 0.1, 50);
-    //gluPerspective(90, 1, 0.01, 25);
+    //glOrtho(-cposz, cposz, -cposz, cposz, 0.1, 50);
+    gluPerspective(30, ratio, 0.01, 25);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     gluLookAt(cposx, cposy, cposz, cposx, cposy, cposz - 5, 0.0, 1.0, 0.0);
+    //Rotation espace en fonction de l'angle de vue
     glRotatef(angley, 1.0, 0.0, 0.0);
     glRotatef(anglex, 0.0, 1.0, 0.0);
 
-    GLfloat light_position[] = { 0.0f, 1.0f, 1.0f, 1.0 };
-
+        //Lumière numero 0 de type Point
+    GLfloat light_position[] = { 0.0f, 1.0f, 1.0f, 0.0 };
     glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+
+    //Lumière rouge de type SPOT
+    GLfloat l1_pos[] = { 1.0f, 5.0f, -3.0f, 1.0f };
+    glLightfv(GL_LIGHT1, GL_POSITION, l1_pos);
+
+    if(nbLum == 0){
+        glDisable(GL_LIGHT0);
+        glDisable(GL_LIGHT1);
+    }
+    else if (nbLum == 1)
+    {
+        glEnable(GL_LIGHT0);
+        glDisable(GL_LIGHT1);
+    }
+    else if (nbLum == 2)
+    {
+        glDisable(GL_LIGHT0);
+        glEnable(GL_LIGHT1);
+    }
+    else
+    {
+        glEnable(GL_LIGHT0);
+        glEnable(GL_LIGHT1);
+    }
+
 
     axolotl();
 
@@ -129,6 +170,7 @@ void affichage()
     glVertex3f(0, 0, 2.0);
     glEnd();
 
+
     glFlush();
 
     //On echange les buffers
@@ -137,6 +179,7 @@ void affichage()
 
 void clavier(unsigned char touche, int x, int y)
 {
+    std::cout << touche << std::endl;
     switch (touche)
     {
     case 'p': /* affichage du carre plein */
@@ -172,21 +215,56 @@ void clavier(unsigned char touche, int x, int y)
     case ' ':
         Axo.tirerLaLangue();
         break;
+    case 'l':
+        nbLum ++;
+        if(nbLum > 3) nbLum = 0;
+        break;
+    case 'Z':
+        cposz += 0.1;
+        break;
+    case 'z':
+        cposz -= 0.1;
+        break;
     case 'q': /*la touche 'q' permet de quitter le programme */
         exit(0);
     }
 }
 
+void arrowGestion(int x, int y, int z)
+{
+    switch(x)
+    {
+    case GLUT_KEY_UP:
+        angley -= 0.5;
+        if(angley < -90) angley = 0;
+        framesPassed = 0;
+        break;
+    case GLUT_KEY_DOWN:
+        angley += 0.5;
+        if(angley > 90) angley = 90;
+        framesPassed = 0;
+        break;
+    case GLUT_KEY_RIGHT:
+        anglex += 0.5;
+        framesPassed = 0;
+        break;
+    case GLUT_KEY_LEFT:
+        anglex -= 0.5;
+        framesPassed = 0;
+        break;
+    }
+    std::cout << x << " " << y << " " << z << std::endl;
+}
+
 void reshape(int x, int y)
 {
-    if (x < y)
-        glViewport(0, (y - x) / 2, x, x);
-    else
-        glViewport((x - y) / 2, 0, y, y);
+    ratio = (double)x/y;
+    glViewport(0, 0, x, y);
 }
 
 void mouse(int button, int state, int x, int y)
 {
+    framesPassed = 0;
     /* si on appuie sur le bouton gauche */
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
     {
@@ -215,8 +293,6 @@ void mouse(int button, int state, int x, int y)
         presseTranslation = false; /* le booleen presse passe a 0 (faux) */
     }
 
-    std::cout << cposx << " " << cposy << " " << cposz << " " << std::endl;
-
     if (button == 4 && cposz < 20)
         cposz += 0.1;
     if (button == 3 && cposz > 0.1)
@@ -225,6 +301,7 @@ void mouse(int button, int state, int x, int y)
 
 void mousemotion(int x, int y)
 {
+    framesPassed = 0;
     if (presseAngle) /* si le bouton gauche est presse */
     {
         /* on modifie les angles de rotation de l'objet

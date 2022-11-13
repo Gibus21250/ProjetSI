@@ -7,7 +7,7 @@
 
 #include <cmath>
 
-#define NBFACE 100
+#define NBFACE 500
 
 class Axo_Corp : public Drawable
 {

@@ -1,6 +1,7 @@
 #include "Sol.h"
 
 #include <GL/freeglut.h>
+
 #include <cstdlib>
 #include <stdio.h>
 #include <jpeglib.h>
@@ -22,6 +23,7 @@ void Sol::draw()
         glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,1024,1024,0,GL_RGB,GL_UNSIGNED_BYTE,texture);
 
         glColor3f(1, 1, 1);
+        glNormal3f(nCube[0][0], nCube[0][1], nCube[0][2]);
         glBegin(GL_POLYGON);
             glTexCoord2f(0, 0);
             glVertex3f(pCube[fCube[0][0]][0], pCube[fCube[0][0]][1], pCube[fCube[0][0]][2]);
@@ -37,6 +39,7 @@ void Sol::draw()
         glDisable(GL_TEXTURE_2D);
         for(int i = 1; i < 6; ++i)
         {
+            glNormal3f(nCube[i][0], nCube[i][1], nCube[i][2]);
             glBegin(GL_POLYGON);
             glVertex3f(pCube[fCube[i][0]][0], pCube[fCube[i][0]][1], pCube[fCube[i][0]][2]);
             glVertex3f(pCube[fCube[i][1]][0], pCube[fCube[i][1]][1], pCube[fCube[i][1]][2]);

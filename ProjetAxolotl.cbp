@@ -39,6 +39,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Axo_TextureStriesInverses.jpg" />
 		<Unit filename="include/Axo_Corp.h" />
 		<Unit filename="include/Axo_Main.h" />
 		<Unit filename="include/Axo_Pate.h" />
@@ -55,6 +56,7 @@
 		<Unit filename="src/Axolotl.cpp" />
 		<Unit filename="src/Sol.cpp" />
 		<Unit filename="src/main.cpp" />
+		<Unit filename="texture-eau.jpg" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

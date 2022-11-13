@@ -3,9 +3,7 @@
 
 #include "../include/Axo_Tete.h"
 
-#include <iostream>
-
-#define DURATION 500.0f
+#define DURATION 50.0f
 
 Axo_Tete::Axo_Tete(const float size) : Axo_Tete{size, 243 / 255., 196 / 255., 207 / 255.} {}
 
@@ -45,7 +43,6 @@ Axo_Tete::Axo_Tete(const float size, const float r_, const float g_, const float
 
 void Axo_Tete::tirerLangue()
 {
-    this->frames = 0;
     this->direction = true;
 }
 
@@ -116,7 +113,7 @@ void Axo_Tete::draw()
             glRotatef(90, 1, 0, 0);
             modBranchies();
         glPopMatrix();
-        glPopMatrix();
+    glPopMatrix();
 
     //-----sourir-----//
     glPushMatrix();
@@ -140,11 +137,13 @@ void Axo_Tete::draw()
             glutSolidSphere(Rsourir / 2, 20, 20);
         glPopMatrix();
 
-    //Si la langue se pousse
+    //Si la langue se pousse on poursuit l'animation
     if(direction && frames < DURATION){
         ++frames;
+        //On regarde si on est à la dernière frame d'animation
         if(frames == DURATION) direction = false;
-    }else if (frames > 0 && !direction){
+    }else if (frames > 0){
+    //On rentre la langue dans la bouche
     --frames;
     }
 
@@ -153,50 +152,49 @@ void Axo_Tete::draw()
 
 void Axo_Tete::modBranchies()
 {
+    glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
     glPushMatrix();
     glRotatef(90, 0, 1, 0);
-    //Grande
-    glPushMatrix();
-    glTranslatef(0.95 * 1 / 2., 0.95 * sqrt(3) / 2., 0);
-    glRotatef(-10, 0, 0, 1);
-    glNormal3f(1.0f, 0.0f, 0.0f);
-    glBegin(GL_TRIANGLES);
+        //Grande
+        glPushMatrix();
+            glTranslatef(0.95 * 1 / 2., 0.95 * sqrt(3) / 2., 0);
+            glRotatef(-10, 0, 0, 1);
 
-    glColor3f(r, g - 0.2, b);
-    glVertex2f(lBranchies / 2, 0);
+            glBegin(GL_TRIANGLES);
 
-    glColor3f(r, g - 0.2, b);
-    glVertex2f(-lBranchies / 2., 0);
+                glColor3f(r, g - 0.2, b);
+                glVertex2f(lBranchies / 2, 0);
 
-    glColor3f(r - 0.2, g - 0.2, b);
-    glVertex2f(0, hBranchies);
+                glColor3f(r, g - 0.2, b);
+                glVertex2f(-lBranchies / 2., 0);
 
-    glEnd();
-    glPopMatrix();
+                glColor3f(r - 0.2, g - 0.2, b);
+                glVertex2f(0, hBranchies);
+
+            glEnd();
+        glPopMatrix();
 
     //Moins Grande
-    glPushMatrix();
-    glTranslatef(0.95 * sqrt(2) / 2., 0.95 * sqrt(2) / 2., 0);
-    glRotatef(-45, 0, 0, 1);
-    glNormal3f(1.0f, 0.0f, 0.0f);
-    glBegin(GL_TRIANGLES);
-    glColor3f(r, g - 0.2, b);
-    glVertex2f(-lBranchies / 2, 0);
+        glPushMatrix();
+        glTranslatef(0.95 * sqrt(2) / 2., 0.95 * sqrt(2) / 2., 0);
+        glRotatef(-45, 0, 0, 1);
+        glBegin(GL_TRIANGLES);
+            glColor3f(r - 0.2, g - 0.2, b);
+            glVertex2f(0, hBranchies);
 
-    glColor3f(r, g - 0.2, b);
-    glVertex2f(lBranchies / 2, 0);
+            glColor3f(r, g - 0.2, b);
+            glVertex2f(lBranchies / 2, 0);
 
-    glColor3f(r - 0.2, g - 0.2, b);
-    glVertex2f(0, hBranchies);
+            glColor3f(r, g - 0.2, b);
+            glVertex2f(-lBranchies / 2, 0);
 
-    glEnd();
-    glPopMatrix();
+        glEnd();
+        glPopMatrix();
 
-    //Moins Grande ++
-    glPushMatrix();
+        //Moins Grande ++
+        glPushMatrix();
         glTranslatef(0.95 * sqrt(3) / 2., 0.95 * 1 / 2., 0);
         glRotatef(-80, 0, 0, 1);
-        glNormal3f(1.0f, 0.0f, 0.0f);
 
         glBegin(GL_TRIANGLES);
             glColor3f(r, g - 0.2, b);
@@ -204,15 +202,16 @@ void Axo_Tete::modBranchies()
 
             glColor3f(r, g - 0.2, b);
             glVertex2f(0, hBranchies);
-            glVertex2f(lBranchies / 2, 0);
 
             glColor3f(r - 0.2, g - 0.2, b);
             glVertex2f(lBranchies / 2, 0);
             //TODO corriger bug lumière bronchies
         glEnd();
         glPopMatrix();
+
     glPopMatrix();
 
     glColor3f(1.0f, 1.0f, 1.0f);
+    glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
 
 }

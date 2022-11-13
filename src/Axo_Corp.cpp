@@ -123,12 +123,16 @@ void Axo_Corp::draw()
             glNormal3f(nCyl[i].x, nCyl[i].y, nCyl[i].z);
             glBegin(GL_POLYGON);
                 glTexCoord2f(i/(double)NBFACE,1.0);
+                glNormal3f(nCyl[i].x, nCyl[i].y, nCyl[i].z);
                 glVertex3f(pCyl[fCyl[i][0]][0], pCyl[fCyl[i][0]][1], pCyl[fCyl[i][0]][2]);
                 glTexCoord2f((i+1)/(double)NBFACE,1.0);
+                glNormal3f(nCyl[i].x, nCyl[i].y, nCyl[i].z);
                 glVertex3f(pCyl[fCyl[i][1]][0], pCyl[fCyl[i][1]][1], pCyl[fCyl[i][1]][2]);
                 glTexCoord2f((i+1)/(double)NBFACE,0.0);
+                glNormal3f(nCyl[i].x, nCyl[i].y, nCyl[i].z);
                 glVertex3f(pCyl[fCyl[i][2]][0], pCyl[fCyl[i][2]][1], pCyl[fCyl[i][2]][2]);
                 glTexCoord2f(i/(double)NBFACE,0.0);
+                glNormal3f(nCyl[i].x, nCyl[i].y, nCyl[i].z);
                 glVertex3f(pCyl[fCyl[i][3]][0], pCyl[fCyl[i][3]][1], pCyl[fCyl[i][3]][2]);
             glEnd();
         }
