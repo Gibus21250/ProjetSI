@@ -221,6 +221,14 @@ void mouse(int button, int state, int x, int y)
         presse = 0; /* le booleen presse passe a 0 (faux) */
     }
 
+    if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN)
+    {
+        presse = 1; /* le booleen presse passe a 1 (vrai) */
+        cposx += x - xold;
+        cposy += y - yold;
+    }
+
+    std::cout << cposx << " " << cposy << " " << cposz << " " << std::endl;
 
     if (button == 4 && cposz < 20)
         cposz += 0.1;
