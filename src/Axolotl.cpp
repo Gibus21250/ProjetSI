@@ -1,4 +1,4 @@
-#include "Axolotl.h"
+#include "../include/Axolotl.h"
 
 #include <GL/freeglut.h>
 #include <iostream>

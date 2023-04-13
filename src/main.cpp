@@ -6,8 +6,8 @@
 #include <cstdlib>
 #include <iostream>
 
-#include "Axolotl.h"
-#include "Sol.h"
+#include "../include/Axolotl.h"
+#include "../include/Sol.h"
 
 int framesPassed = 0;
 
@@ -78,7 +78,7 @@ int main(int argc, char** argv)
     glEnable(GL_DEPTH_TEST);
     glShadeModel(GL_SMOOTH);
 
-    /* Initialisation du systeme de lumière*/
+    /* Initialisation du systeme de lumiï¿½re*/
     glEnable(GL_NORMALIZE);
     glEnable(GL_LIGHTING);
     glEnable(GL_COLOR_MATERIAL);
@@ -87,10 +87,10 @@ int main(int argc, char** argv)
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lmodel_ambient);
 
 
-    // Lumière Point, ecla  irage global simple avec les valeurs par défaut
+    // Lumiï¿½re Point, ecla  irage global simple avec les valeurs par dï¿½faut
     glEnable(GL_LIGHT0);
 
-    // Lumière numéro 1 //
+    // Lumiï¿½re numï¿½ro 1 //
     glEnable(GL_LIGHT1);
 
     GLfloat l1_diff[] = { 0.1f, 0.5f, 0.8f, 1.0f };
@@ -144,11 +144,11 @@ void affichage()
     glRotatef(angley, 1.0, 0.0, 0.0);
     glRotatef(anglex, 0.0, 1.0, 0.0);
 
-        //Lumière numero 0 de type Point
+        //Lumiï¿½re numero 0 de type Point
     GLfloat light_position[] = { 0.0f, 1.0f, 1.0f, 0.0 };
     glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
-    //Lumière rouge de type SPOT
+    //Lumiï¿½re rouge de type SPOT
     GLfloat l1_pos[] = { 1.0f, 5.0f, -3.0f, 1.0f };
     glLightfv(GL_LIGHT1, GL_POSITION, l1_pos);
 
@@ -176,7 +176,7 @@ void affichage()
     axolotl();
 
     /*
-    //Repère
+    //Repï¿½re
     //axe x en rouge
     glBegin(GL_LINES);
     glColor3f(1.0, 0.0, 0.0);
