@@ -3,6 +3,10 @@
 #include <stdio.h>
 #include <jpeglib.h>
 
+#define M_PI 3.141592653589793
+
+#include <math.h>
+
 #include "../include/Axo_Corp.h"
 #include "../include/Axo_Pate.h"
 #include "../include/Axo_Tete.h"
@@ -30,31 +34,31 @@ void Axo_Corp::generateCyl()      //genere un cylindre de nbFaces
     for (int i = 0; i < NBFACE; i++)
     {
         //base
-        pCyl[i][0] = rCyl * cos(i * 2 * M_PI / NBFACE);  //coordonnées x
-        pCyl[i][1] = 0;                           //coordonnées y
-        pCyl[i][2] = rCyl * sin(i * 2 * M_PI / NBFACE);  //coordonnées z
+        pCyl[i][0] = rCyl * cos(i * 2 * M_PI / NBFACE);  //coordonnï¿½es x
+        pCyl[i][1] = 0;                           //coordonnï¿½es y
+        pCyl[i][2] = rCyl * sin(i * 2 * M_PI / NBFACE);  //coordonnï¿½es z
 
         //couvercle
-        pCyl[i + NBFACE][0] = rCyl * cos(i * 2 * M_PI / NBFACE);//coordonnées x
-        pCyl[i + NBFACE][1] = hCyl;                      //coordonnées y
-        pCyl[i + NBFACE][2] = rCyl * sin(i * 2 * M_PI / NBFACE);//coordonnées z
+        pCyl[i + NBFACE][0] = rCyl * cos(i * 2 * M_PI / NBFACE);//coordonnï¿½es x
+        pCyl[i + NBFACE][1] = hCyl;                      //coordonnï¿½es y
+        pCyl[i + NBFACE][2] = rCyl * sin(i * 2 * M_PI / NBFACE);//coordonnï¿½es z
 
     }
 
     //point milieu base
-    pCyl[NBFACE * 2][0] = 0;//coordonnées x
-    pCyl[NBFACE * 2][1] = 0;//coordonnées y
-    pCyl[NBFACE * 2][2] = 0;//coordonnées z
+    pCyl[NBFACE * 2][0] = 0;//coordonnï¿½es x
+    pCyl[NBFACE * 2][1] = 0;//coordonnï¿½es y
+    pCyl[NBFACE * 2][2] = 0;//coordonnï¿½es z
 
     //point milieu couvercle
-    pCyl[2 * NBFACE + 1][0] = 0;   //coordonnées x
-    pCyl[2 * NBFACE + 1][1] = hCyl;//coordonnées y
-    pCyl[2 * NBFACE + 1][2] = 0;   //coordonnées z
+    pCyl[2 * NBFACE + 1][0] = 0;   //coordonnï¿½es x
+    pCyl[2 * NBFACE + 1][1] = hCyl;//coordonnï¿½es y
+    pCyl[2 * NBFACE + 1][2] = 0;   //coordonnï¿½es z
 
     //-----Faces-----//
     for (int i = 0; i < NBFACE; i++)
     {
-        //il y en a 4 car il y a 4 coordonnées dans un rectangle(=une face)
+        //il y en a 4 car il y a 4 coordonnï¿½es dans un rectangle(=une face)
         fCyl[i][0] = i;
         fCyl[i][1] = (i + 1) % NBFACE;
         fCyl[i][2] = ((i + 1) % NBFACE) + NBFACE;
@@ -86,7 +90,7 @@ void Axo_Corp::draw()
 
     //-----Dessin de la base du corp-----//
 
-    //Notre cylindre étant orienté sur l'axe Z, nous pivotons notre espace pour l'orienter sur l'axe x de notre scène
+    //Notre cylindre ï¿½tant orientï¿½ sur l'axe Z, nous pivotons notre espace pour l'orienter sur l'axe x de notre scï¿½ne
     glPushMatrix();
         glRotated(-90, 0, 0, 1);
         glScalef(0.8, 1, 1);
@@ -147,7 +151,8 @@ void Axo_Corp::draw()
 
 void Axo_Corp::loadJpegImage(char *fichier)
 {
-    unsigned char image[3*512*512];
+    unsigned char* image = (unsigned char*) (malloc(sizeof(char) * 3 * 512 * 512));
+
     struct jpeg_decompress_struct cinfo;
     struct jpeg_error_mgr jerr;
     FILE *file;
@@ -155,8 +160,8 @@ void Axo_Corp::loadJpegImage(char *fichier)
 
     cinfo.err = jpeg_std_error(&jerr);
     jpeg_create_decompress(&cinfo);
-    #ifdef __WIN32
-    if (fopen_s(&file,fichier,"rb") != 0)
+    #ifdef _WIN32
+    if (fopen_s(&file, fichier, "rb") != 0)
     {
       fprintf(stderr,"Erreur : impossible d'ouvrir le fichier texture.jpg\n");
       exit(1);
@@ -201,6 +206,8 @@ void Axo_Corp::loadJpegImage(char *fichier)
             texture[i][j][2] = image[i*512*3+j*3+2];
         }
     }
+
+    free(image);
 }
 
 void Axo_Corp::flageleMod()
@@ -211,16 +218,16 @@ void Axo_Corp::flageleMod()
         glNormal3b(0.0f, 0.0f, 0.2f);
         glBegin(GL_POLYGON);
             glColor3f(r, g - 0.2, b);
-            glVertex3f(0, rCyl*1.1, 0);     //coin en haut à gauche
+            glVertex3f(0, rCyl*1.1, 0);     //coin en haut ï¿½ gauche
 
             glColor3f(r, g - 0.2, b);
-            glVertex3f(0, 0, 0);  //coin en bas à gauche
+            glVertex3f(0, 0, 0);  //coin en bas ï¿½ gauche
 
             glColor3f(r, g, b);
-            glVertex3f(0.72 * hCyl, 0, 0);     //coin en bas à droite
+            glVertex3f(0.72 * hCyl, 0, 0);     //coin en bas ï¿½ droite
 
             glColor3f(r, g, b);
-            glVertex3f(0.72 * hCyl, rCyl * 1.1, 0);     //coin en haut à droite
+            glVertex3f(0.72 * hCyl, rCyl * 1.1, 0);     //coin en haut ï¿½ droite
 
         glEnd();
 
@@ -231,16 +238,16 @@ void Axo_Corp::flageleMod()
 
         glBegin(GL_POLYGON);
             glColor3f(r, g, b);
-            glVertex3f(0.72*hCyl, rCyl*1.1, 0);     //coin en haut à gauche
+            glVertex3f(0.72*hCyl, rCyl*1.1, 0);     //coin en haut ï¿½ gauche
 
             glColor3f(r, g, b);
-            glVertex3f(0.72*hCyl, 0, 0);    //coin en bas à gauche
+            glVertex3f(0.72*hCyl, 0, 0);    //coin en bas ï¿½ gauche
 
             glColor3f(r, g, b);
-            glVertex3f(hCyl, 0, 0);     //coin en bas à droite
+            glVertex3f(hCyl, 0, 0);     //coin en bas ï¿½ droite
 
             glColor3f(r, g, b);
-            glVertex3f(hCyl, rCyl*0.6, 0);      //coin en haut à droite
+            glVertex3f(hCyl, rCyl*0.6, 0);      //coin en haut ï¿½ droite
 
         glEnd();
 

@@ -1,4 +1,4 @@
-#include "Sol.h"
+#include "../include/Sol.h"
 
 #include <GL/freeglut.h>
 
@@ -54,7 +54,8 @@ void Sol::draw()
 
 void Sol::loadJpegImage(char *fichier)
 {
-    unsigned char image[3*1024*1024];
+    unsigned char* image = (unsigned char*)(malloc(sizeof(char) * 3 * 1024 * 1024));
+
     struct jpeg_decompress_struct cinfo;
     struct jpeg_error_mgr jerr;
     FILE *file;
@@ -62,7 +63,7 @@ void Sol::loadJpegImage(char *fichier)
 
     cinfo.err = jpeg_std_error(&jerr);
     jpeg_create_decompress(&cinfo);
-    #ifdef __WIN32
+    #ifdef _WIN32
     if (fopen_s(&file,fichier,"rb") != 0)
     {
       fprintf(stderr,"Erreur : impossible d'ouvrir le fichier texture.jpg\n");
@@ -79,7 +80,7 @@ void Sol::loadJpegImage(char *fichier)
     jpeg_read_header(&cinfo, TRUE);
 
     if ((cinfo.image_width != 1024)||(cinfo.image_height != 1024)) {
-        fprintf(stdout,"Erreur : l'image doit etre de taille 512x512\n");
+        fprintf(stdout,"Erreur : l'image doit etre de taille 1024x1024\n");
         exit(1);
     }
 
@@ -109,4 +110,6 @@ void Sol::loadJpegImage(char *fichier)
             texture[i][j][2] = image[i*1024*3+j*3+2];
         }
     }
+
+    free(image);
 }
