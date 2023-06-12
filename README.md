@@ -2,7 +2,7 @@
 ## Introduction
 Le but du projet est de modéliser un animal, ici c'est un **axolotl**, et de proposer quelques animations:
 - Une animation de caméra
-- Une animation déclanchable par l'appui d'une touche
+- Une animation déclanchable par l'appui d'une touche (Appuie sur la touche espace)
 - Une texture enroulée
 - Une texture plaquée
 
